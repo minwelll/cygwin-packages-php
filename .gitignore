@@ -1,0 +1,11 @@
+*~
+*.x86_64/
+*.i686/
+*.noarch/
+old/
+save/
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tgz
+temp.*

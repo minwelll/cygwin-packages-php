@@ -2,7 +2,7 @@ inherit httpd
 
 NAME="php"
 VERSION=7.3.7
-RELEASE=1
+RELEASE=2
 CATEGORY="PHP"
 SUMMARY="PHP Hypertext Preprocessor"
 DESCRIPTION="PHP (recursive acronym for 'PHP: Hypertext Preprocessor')
@@ -36,8 +36,79 @@ PATCH_URI="
 	5.6.6-fix-libtoolize.patch
 	5.6.9-apache2handler-zts.patch
 	7.0.17-pcre-jit-off.patch
-	7.1.9-malloc-cygwin.patch
+	7.3.7-malloc-cygwin.patch
 	7.2.4-zip-pcre.patch
+"
+
+# From https://sourceware.org/pipermail/cygwin/2017-May/232903.html,
+# with some additions/corrections.
+BUILD_REQUIRES=" \
+httpd-devel \
+libGL-devel \
+libLASi-devel \
+libXpm-devel \
+libapr1-devel \
+libaprutil1-devel \
+libargon2-devel \
+libaspell-devel \
+libattr-devel \
+libc-client-devel \
+libcroco0.6-devel \
+libcurl-devel \
+libedit-devel \
+libenchant-devel \
+libfam-devel \
+libffi-devel \
+libgd-devel \
+libgdbm-devel \
+libgnutls-devel \
+libgs-devel \
+libgtk2.0-devel \
+libgts-devel \
+libguile1.8-devel \
+libguile2.0-devel \
+libgvc-devel \
+libhunspell-devel \
+libicu-devel \
+libidn2-devel \
+libisl-devel \
+libjasper-devel \
+libjpeg-devel \
+libkrb5-devel \
+liblcms-devel \
+liblmdb-devel \
+libllvm-devel \
+liblzo2-devel \
+libmcrypt-devel \
+libming-devel \
+libmpc-devel \
+libmpfr-devel \
+libnghttp2-devel \
+libnss-devel \
+libonig-devel \
+libopenjp2-devel \
+libopenjpeg-devel \
+libpcre2-devel \
+libpng12-devel \
+libpoppler-devel \
+libpq-devel \
+libpsl-devel \
+libreadline-devel \
+librsvg2-devel \
+libsigsegv-devel \
+libsodium-devel \
+libsqlite3-devel \
+libssh2-devel \
+libsybdb-devel \
+libthai-devel \
+libtidy-devel \
+libtxc_dxtn-devel \
+libunistring-devel \
+libvoikko-devel \
+libwebp-devel \
+libxslt-devel \
+libzip-devel \
+recode \
 "
 
 DIFF_EXCLUDES="aclocal.m4 configure generated_lists libtool.m4 lt*.m4 ltmain.sh php_config.h.in php_version.h tests zend_ini_parser.*"
