@@ -1,0 +1,73 @@
+From cygwin-announce-php-7.3.7-2 Wed Aug 05 08:08:54 2020
+From: Ken Brown <kbrown@cornell.edu>
+To: cygwin-announce@cygwin.com
+Date: Wed, 05 Aug 2020 08:08:54 -0400
+Message-Id: <20200805080854.32296-1-kbrown@cornell.edu>
+Subject: php 7.3.7-2
+
+The following packages have been uploaded to the Cygwin distribution:
+
+* php-7.3.7-2
+* php-devel-7.3.7-2
+* httpd-mod_php7-7.3.7-2
+* php-bcmath-7.3.7-2
+* php-bz2-7.3.7-2
+* php-calendar-7.3.7-2
+* php-ctype-7.3.7-2
+* php-curl-7.3.7-2
+* php-dba-7.3.7-2
+* php-enchant-7.3.7-2
+* php-exif-7.3.7-2
+* php-fileinfo-7.3.7-2
+* php-ftp-7.3.7-2
+* php-gd-7.3.7-2
+* php-gettext-7.3.7-2
+* php-gmp-7.3.7-2
+* php-iconv-7.3.7-2
+* php-imap-7.3.7-2
+* php-json-7.3.7-2
+* php-ldap-7.3.7-2
+* php-intl-7.3.7-2
+* php-mbstring-7.3.7-2
+* php-mysqli-7.3.7-2
+* php-odbc-7.3.7-2
+* php-opcache-7.3.7-2
+* php-pdo_dblib-7.3.7-2
+* php-pdo_mysql-7.3.7-2
+* php-pdo_odbc-7.3.7-2
+* php-pdo_pgsql-7.3.7-2
+* php-pdo_sqlite-7.3.7-2
+* php-pgsql-7.3.7-2
+* php-phar-7.3.7-2
+* php-posix-7.3.7-2
+* php-pspell-7.3.7-2
+* php-recode-7.3.7-2
+* php-shmop-7.3.7-2
+* php-simplexml-7.3.7-2
+* php-soap-7.3.7-2
+* php-sodium-7.3.7-2
+* php-sqlite3-7.3.7-2
+* php-sockets-7.3.7-2
+* php-sysvmsg-7.3.7-2
+* php-sysvsem-7.3.7-2
+* php-sysvshm-7.3.7-2
+* php-tidy-7.3.7-2
+* php-tokenizer-7.3.7-2
+* php-wddx-7.3.7-2
+* php-xmlreader-7.3.7-2
+* php-xmlrpc-7.3.7-2
+* php-xmlwriter-7.3.7-2
+* php-xsl-7.3.7-2
+* php-zip-7.3.7-2
+* php-zlib-7.3.7-2
+
+PHP (recursive acronym for 'PHP: Hypertext Preprocessor')
+is a widely-used Open Source general-purpose scripting language that is
+especially suited for Web development and can be embedded into HTML.
+
+This is a non-maintainer upload to fix the problem reported here:
+
+  https://sourceware.org/pipermail/cygwin/2020-July/245557.html
+  https://sourceware.org/pipermail/cygwin/2020-August/245752.html
+
+Ken Brown
