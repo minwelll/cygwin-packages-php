@@ -1,0 +1,14 @@
+--- origsrc/php-8.1.28/ext/standard/base64.c
++++ src/php-8.1.28/ext/standard/base64.c
+@@ -20,6 +20,11 @@
+ #include "php.h"
+ #include "base64.h"
+ 
++
++#ifdef ZEND_INTRIN_AVX2_FUNC_PTR
++# undef ZEND_INTRIN_AVX2_FUNC_PTR
++#endif
++
+ /* {{{ base64 tables */
+ static const char base64_table[] = {
+ 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
