@@ -1,6 +1,6 @@
 --- origsrc/php-5.3.4/ext/dba/config.m4	2010-12-01 13:20:16.000000000 -0600
 +++ src/php-5.3.4/ext/dba/config.m4	2010-12-29 23:23:12.000000000 -0600
-@@ -172,6 +172,10 @@ if test "$PHP_NDBM" != "no"; then
+@@ -203,6 +203,10 @@ if test "$PHP_NDBM" != "no"; then
        THIS_PREFIX=$i
        THIS_INCLUDE=$i/include/ndbm.h
        break
@@ -11,16 +11,80 @@
      elif test -f "$i/include/db1/ndbm.h"; then
        THIS_PREFIX=$i
        THIS_INCLUDE=$i/include/db1/ndbm.h
-@@ -195,7 +195,7 @@ if test "$PHP_NDBM" != "no"; then
+@@ -211,7 +215,7 @@ if test "$PHP_NDBM" != "no"; then
    done
-   
+ 
    if test -n "$THIS_INCLUDE"; then
 -    for LIB in ndbm db1 c; do
 +    for LIB in ndbm db1 gdbm_compat c; do
        PHP_CHECK_LIBRARY($LIB, dbm_open, [
          AC_DEFINE_UNQUOTED(NDBM_INCLUDE_FILE, "$THIS_INCLUDE", [ ])
-         AC_DEFINE(DBA_NDBM, 1, [ ]) 
-@@ -479,7 +479,7 @@ if test "$PHP_DBM" != "no"; then
+         AC_DEFINE(DBA_NDBM, 1, [ ])
+@@ -375,61 +379,13 @@ if test "$PHP_DB4" != "no"; then
+   dbdp4="/usr/local/BerkeleyDB.4."
+   dbdp5="/usr/local/BerkeleyDB.5."
+   for i in $PHP_DB4 ${dbdp5}1 ${dbdp5}0 ${dbdp4}8 ${dbdp4}7 ${dbdp4}6 ${dbdp4}5 ${dbdp4}4 ${dbdp4}3 ${dbdp4}2 ${dbdp4}1 ${dbdp}0 /usr/local /usr; do
+-    if test -f "$i/db5/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/db5/db.h
+-      break
+-    elif test -f "$i/db4/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/db4/db.h
+-      break
+-    elif test -f "$i/include/db5.3/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db5.3/db.h
+-      break
+-    elif test -f "$i/include/db5.1/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db5.1/db.h
+-      break
+-    elif test -f "$i/include/db5.0/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db5.0/db.h
+-      break
+-    elif test -f "$i/include/db4.8/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4.8/db.h
+-      break
+-    elif test -f "$i/include/db4.7/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4.7/db.h
+-      break
+-    elif test -f "$i/include/db4.6/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4.6/db.h
+-      break
+-    elif test -f "$i/include/db4.5/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4.5/db.h
+-      break
+-    elif test -f "$i/include/db4/db.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4/db.h
+-      break
+-    elif test -f "$i/include/db/db4.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db/db4.h
+-      break
+-    elif test -f "$i/include/db4.h"; then
+-      THIS_PREFIX=$i
+-      THIS_INCLUDE=$i/include/db4.h
+-      break
+-    elif test -f "$i/include/db.h"; then
++    if test -f "$i/include/db.h"; then
+       THIS_PREFIX=$i
+       THIS_INCLUDE=$i/include/db.h
+       break
+     fi
+   done
+-  PHP_DBA_DB_CHECK(4, db-5.3 db-5.1 db-5.0 db-4.8 db-4.7 db-4.6 db-4.5 db-4.4 db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db, [(void)db_create((DB**)0, (DB_ENV*)0, 0)])
++  PHP_DBA_DB_CHECK(4, db, [(void)db_create((DB**)0, (DB_ENV*)0, 0)])
+ fi
+ PHP_DBA_STD_RESULT(db4,Berkeley DB4)
+ 
+@@ -585,7 +541,7 @@ if test "$PHP_DBM" != "no"; then
    done
  
    if test -n "$THIS_INCLUDE"; then

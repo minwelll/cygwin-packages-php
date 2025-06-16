@@ -1,0 +1,334 @@
+--- origsrc/php-8.1.28/ext/pdo_dblib/dblib_driver.c
++++ src/php-8.1.28/ext/pdo_dblib/dblib_driver.c
+@@ -22,8 +22,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_dblib.h"
+ #include "php_pdo_dblib_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_dblib/dblib_stmt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_dblib/dblib_stmt.c
++++ src/php-8.1.28/ext/pdo_dblib/dblib_stmt.c
+@@ -23,8 +23,8 @@
+ #include "php_ini.h"
+ #include "ext/standard/php_string.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_dblib.h"
+ #include "php_pdo_dblib_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_dblib/pdo_dblib.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_dblib/pdo_dblib.c
++++ src/php-8.1.28/ext/pdo_dblib/pdo_dblib.c
+@@ -22,8 +22,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_dblib.h"
+ #include "php_pdo_dblib_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_firebird/firebird_driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_firebird/firebird_driver.c
++++ src/php-8.1.28/ext/pdo_firebird/firebird_driver.c
+@@ -24,8 +24,8 @@
+ #include "zend_exceptions.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_firebird.h"
+ #include "php_pdo_firebird_int.h"
+ 
+ ext/pdo_firebird/firebird_statement.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_firebird/firebird_statement.c
++++ src/php-8.1.28/ext/pdo_firebird/firebird_statement.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_firebird.h"
+ #include "php_pdo_firebird_int.h"
+ 
+ ext/pdo_firebird/pdo_firebird.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_firebird/pdo_firebird.c
++++ src/php-8.1.28/ext/pdo_firebird/pdo_firebird.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_firebird.h"
+ #include "php_pdo_firebird_int.h"
+ 
+ ext/pdo_mysql/mysql_driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_mysql/mysql_driver.c
++++ src/php-8.1.28/ext/pdo_mysql/mysql_driver.c
+@@ -23,8 +23,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_mysql.h"
+ #include "php_pdo_mysql_int.h"
+ #ifndef PDO_USE_MYSQLND
+ ext/pdo_mysql/mysql_statement.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_mysql/mysql_statement.c
++++ src/php-8.1.28/ext/pdo_mysql/mysql_statement.c
+@@ -23,8 +23,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_mysql.h"
+ #include "php_pdo_mysql_int.h"
+ 
+ ext/pdo_mysql/pdo_mysql.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_mysql/pdo_mysql.c
++++ src/php-8.1.28/ext/pdo_mysql/pdo_mysql.c
+@@ -22,8 +22,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_mysql.h"
+ #include "php_pdo_mysql_int.h"
+ 
+ ext/pdo_oci/oci_driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_oci/oci_driver.c
++++ src/php-8.1.28/ext/pdo_oci/oci_driver.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_oci.h"
+ #include "php_pdo_oci_int.h"
+ #include "Zend/zend_exceptions.h"
+ ext/pdo_oci/oci_statement.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_oci/oci_statement.c
++++ src/php-8.1.28/ext/pdo_oci/oci_statement.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_oci.h"
+ #include "php_pdo_oci_int.h"
+ #include "Zend/zend_extensions.h"
+ ext/pdo_oci/pdo_oci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_oci/pdo_oci.c
++++ src/php-8.1.28/ext/pdo_oci/pdo_oci.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_oci.h"
+ #include "php_pdo_oci_int.h"
+ #ifdef ZTS
+ ext/pdo_odbc/odbc_driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_odbc/odbc_driver.c
++++ src/php-8.1.28/ext/pdo_odbc/odbc_driver.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_odbc.h"
+ #include "php_pdo_odbc_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_odbc/odbc_stmt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_odbc/odbc_stmt.c
++++ src/php-8.1.28/ext/pdo_odbc/odbc_stmt.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_odbc.h"
+ #include "php_pdo_odbc_int.h"
+ 
+ ext/pdo_odbc/pdo_odbc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_odbc/pdo_odbc.c
++++ src/php-8.1.28/ext/pdo_odbc/pdo_odbc.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_odbc.h"
+ #include "php_pdo_odbc_int.h"
+ 
+ ext/pdo_pgsql/pdo_pgsql.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_pgsql/pdo_pgsql.c
++++ src/php-8.1.28/ext/pdo_pgsql/pdo_pgsql.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_pgsql.h"
+ #include "php_pdo_pgsql_int.h"
+ 
+ ext/pdo_pgsql/pgsql_driver.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_pgsql/pgsql_driver.c
++++ src/php-8.1.28/ext/pdo_pgsql/pgsql_driver.c
+@@ -25,9 +25,9 @@
+ #include "ext/standard/info.h"
+ #include "ext/standard/php_string.h"
+ #include "main/php_network.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
+-#include "pdo/php_pdo_error.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo_error.h"
+ #include "ext/standard/file.h"
+ #undef SIZEOF_OFF_T
+ #include "php_pdo_pgsql.h"
+ ext/pdo_pgsql/pgsql_statement.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_pgsql/pgsql_statement.c
++++ src/php-8.1.28/ext/pdo_pgsql/pgsql_statement.c
+@@ -23,8 +23,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_pgsql.h"
+ #include "php_pdo_pgsql_int.h"
+ #ifdef HAVE_NETINET_IN_H
+ ext/pdo_sqlite/pdo_sqlite.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_sqlite/pdo_sqlite.c
++++ src/php-8.1.28/ext/pdo_sqlite/pdo_sqlite.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_sqlite.h"
+ #include "php_pdo_sqlite_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_sqlite/sqlite_driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_sqlite/sqlite_driver.c
++++ src/php-8.1.28/ext/pdo_sqlite/sqlite_driver.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_sqlite.h"
+ #include "php_pdo_sqlite_int.h"
+ #include "zend_exceptions.h"
+ ext/pdo_sqlite/sqlite_statement.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- origsrc/php-8.1.28/ext/pdo_sqlite/sqlite_statement.c
++++ src/php-8.1.28/ext/pdo_sqlite/sqlite_statement.c
+@@ -21,8 +21,8 @@
+ #include "php.h"
+ #include "php_ini.h"
+ #include "ext/standard/info.h"
+-#include "pdo/php_pdo.h"
+-#include "pdo/php_pdo_driver.h"
++#include "ext/pdo/php_pdo.h"
++#include "ext/pdo/php_pdo_driver.h"
+ #include "php_pdo_sqlite.h"
+ #include "php_pdo_sqlite_int.h"
