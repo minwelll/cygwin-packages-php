@@ -62,18 +62,17 @@
  AC_DEFINE_UNQUOTED(PHP_BUILD_SYSTEM,"$PHP_BUILD_SYSTEM",[builder uname output])
 --- origsrc/php-7.0.13/sapi/apache2handler/config.m4	2016-11-24 17:21:50.685672000 -0600
 +++ src/php-7.0.13/sapi/apache2handler/config.m4	2016-11-24 17:26:46.389949200 -0600
-@@ -46,8 +46,8 @@
-   APU_CONFIG=`$APXS -q APU_CONFIG 2>/dev/null ||
+@@ -47,7 +47,9 @@
      echo $APU_BINDIR/apu-config`
  
--  APR_CFLAGS="`$APR_CONFIG --cppflags --includes`"
--  APU_CFLAGS="`$APU_CONFIG --includes`"
+   APR_CFLAGS="`$APR_CONFIG --cppflags --includes`"
 +  APR_LIBS="`$APR_CONFIG --ldflags --link-ld`"
+   APU_CFLAGS="`$APU_CONFIG --includes`"
 +  APU_LIBS="`$APU_CONFIG --ldflags --link-ld`"
  
    for flag in $APXS_CFLAGS; do
      case $flag in
-@@ -56,6 +56,7 @@
+@@ -56,6 +58,7 @@
    done
  
    APACHE_CFLAGS="$APACHE_CPPFLAGS -I$APXS_INCLUDEDIR $APR_CFLAGS $APU_CFLAGS -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1"
@@ -81,7 +80,7 @@
  
    dnl Test that we're trying to configure with apache 2.x
    PHP_AP_EXTRACT_VERSION($APXS_HTTPD)
-@@ -86,16 +87,12 @@
+@@ -86,16 +89,12 @@
      PHP_SELECT_SAPI(apache2handler, shared, mod_php.c sapi_apache2.c apache_config.c php_functions.c, $APACHE_CFLAGS)
      INSTALL_IT="$INSTALL_IT $SAPI_LIBTOOL"
      ;;
