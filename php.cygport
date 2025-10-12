@@ -1,8 +1,8 @@
 inherit httpd
 
 NAME="php"
-VERSION=7.3.7
-RELEASE=2
+VERSION=8.1.28
+RELEASE=1
 CATEGORY="PHP"
 SUMMARY="PHP Hypertext Preprocessor"
 DESCRIPTION="PHP (recursive acronym for 'PHP: Hypertext Preprocessor')
@@ -12,32 +12,26 @@ HOMEPAGE="https://www.php.net/"
 SRC_URI="http://www.php.net/distributions/php-${VERSION}.tar.xz"
 SRC_URI+=" template-builtin.reg template-ext.reg php-fpm.init"
 PATCH_URI="
-	fedora/php-7.2.0-includedir.patch
-	fedora/php-5.3.0-recode.patch
-	fedora/php-7.2.0-libdb.patch
-	fedora/php-7.3.3-systzdata-v18.patch
-	fedora/php-7.2.3-ldap_r.patch
-	fedora/php-7.3.0-phpize.patch
-	fedora/php-5.6.3-phpinfo.patch
-	fedora/php-5.6.3-datetests.patch
-	fedora/php-7.2.4-fixheader.patch
+	patches/fedora/php-7.2.0-includedir.patch
+	patches/fedora/php-7.2.0-libdb.patch
+	patches/fedora/php-7.2.3-ldap_r.patch
+	patches/fedora/php-7.3.0-phpize.patch
+	patches/fedora/php-5.6.3-phpinfo.patch
+	patches/fedora/php-5.6.3-datetests.patch
 	7.0.13-cygwin-build.patch
-	7.2.4-curl-ssl.patch
 	5.3.4-dba-gdbm_compat.patch
 	5.4.10-imap-cygwin.patch
 	7.2.5-intl-libstdc.patch
-	7.2.5-intl-icu61.patch
 	7.2.5-mbstring-onig.patch
-	5.3.4-pspell-libpspell.patch
 	5.3.10-sybase-cygwin.patch
-	7.3.3-posix-ttyname_r.patch
 	7.3.3-configure-implicit-decls.patch
-	5.4.20-libmbfl-implicit-decls.patch
-	5.6.6-fix-libtoolize.patch
-	5.6.9-apache2handler-zts.patch
 	7.0.17-pcre-jit-off.patch
-	7.3.7-malloc-cygwin.patch
-	7.2.4-zip-pcre.patch
+	8.1.28-disable-avx2-base64.patch                             
+	8.1.28-fix-iconv-shared-lib-linking.patch                    
+	8.1.28-fix-libintl-setlocale-redefine.patch                  
+	8.1.28-remove-redundant-warn-jit-disabled.patch              
+	8.1.28-simplify_pdo_include_paths.patch                      
+	8.1.28-zip-disable-encryption-introduced-in-libzip-1.6+.patch	
 "
 
 # From https://sourceware.org/pipermail/cygwin/2017-May/232903.html,
@@ -162,7 +156,8 @@ common_args="
   --with-openssl-dir=/usr
   --with-pcre-dir=/usr
   --with-pcre-regex=/usr
-
+  --disable-fiber-asm  
+  
   ac_cv_func_ttyname_r_works=yes
 "
 
@@ -273,12 +268,12 @@ php_CATEGORY="Interpreters PHP"
 php_OBSOLETES="php-mcrypt php-readline php-session"
 php_CONTENTS="
 	--exclude=${inidir#/}/*.ini
-	etc/defaults${HTTPD_SYSCONFDIR}/php7.conf
+	etc/defaults${HTTPD_SYSCONFDIR}/php8.conf
 	etc/defaults/etc/php*
 	${inidir#/}
 	etc/p*/php.sh
 	etc/rc.d/init.d/php-fpm
-	usr/bin/cygphp7-*.dll
+	usr/bin/cygphp8-*.dll
 	usr/bin/php.exe
 	usr/bin/php-cgi.exe
 	usr/bin/phpdbg.exe
@@ -307,7 +302,7 @@ php_devel_CONTENTS="
 	usr/bin/php-config
 	usr/bin/phpize
 	usr/include/php/
-	usr/lib/libphp7.dll.a
+	usr/lib/libphp8.dll.a
 	usr/lib/php/build/
 	usr/share/man/man1/php-config.*
 	usr/share/man/man1/phpize.*
@@ -345,9 +340,11 @@ src_compile() {
 	libtoolize --copy --force || error "libtoolize failed"
 	cat /usr/share/aclocal/libtool.m4 /usr/share/aclocal/lt{options,sugar,version,~obsolete}.m4 > build/libtool.m4
 
-	cygmake -j1 -B -f build/build.mk ZENDDIR="Zend"
+    cygautoreconf
+	#cygmake -j1 -B -f build/build.mk ZENDDIR="Zend"
+
 	# these are shipped and used by phpize
-	gnuconfigize .
+	gnuconfigize ./build
 
 	# Hack to work around configure adding to hard-coded include_path
 	# only when bundled PEAR is enabled (we package it separately)
@@ -364,25 +361,27 @@ src_compile() {
 		--enable-embed --enable-phpdbg
 
 	sed -e '/^LTCFLAGS=/d' -i libtool
-	sed -e 's/ -lphp7 / libphp7.la /g' -i Makefile
+    # Add GCC 12 and x86_64 Cygwin-specific library paths to sys_lib_search_path_spec in libtool
+    sed -i 's|^sys_lib_search_path_spec="\([^"]*\)"|sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-cygwin/12 /usr/x86_64-pc-cygwin/lib \1"|' libtool
+    sed -e 's/ -lphp8 / libphp.la /g' -i Makefile
 
 	# first make the common sources library
 	# enabling zip with system libzip somehow clobbers -lpcre
-	cygmake libphp${VERSION%%.*}.la \
-		EXTRA_LDFLAGS="-release ${VERSION%.*} -avoid-version -module -no-undefined -lpcre2-8"
+	cygmake libphp.la \
+		EXTRA_CFLAGS="-DZEND_FIBER_UCONTEXT" EXTRA_LDFLAGS="-release ${VERSION%.*} -avoid-version -module -no-undefined -lpcre2-8"
 
-	sed -e 's#link=yes#link=no#' -i libphp${VERSION%%.*}.la
+	sed -e 's#link=yes#link=no#' -i libphp.la
 
 	# then make everything else
 	# c-client is static only so we need to circumvent libtool to link
 	cygmake -j1 \
 		IMAP_SHARED_LIBADD='-Wl,-lc-client,-lssl,-lcrypto,-lgssapi_krb5,-lkrb5' \
 		PHP_GLOBAL_OBJS='' \
-		ZEND_EXTRA_LIBS="${B}/embed/libphp${VERSION%%.*}.la"
+		ZEND_EXTRA_LIBS="${B}/embed/libphp.la"
 
 
 	#
-	# Apache2 mod_php7 SAPI
+	# Apache2 mod_php8 SAPI
 	#
 	mkdir -p ${B}/apache2
 	cd ${B}/apache2
@@ -420,8 +419,8 @@ src_install() {
 	cd ${B}/embed
 	cygmake -j1 install INSTALL_ROOT=${D} INSTALL_IT=
 	# install the shared lib (normally done by INSTALL_IT)
-	dobin libs/cygphp7-*.dll
-	dolib libs/libphp7.dll.a
+	dobin libs/cygphp8-*.dll
+	dolib libs/libphp8.dll.a
 
 	# install the real executables, not the libtool stubs
 	cd ${B}
@@ -523,20 +522,20 @@ src_install() {
 	done
 
 	dodir ${HTTPD_SYSCONFMODULESDIR}
-	cat > ${D}${HTTPD_SYSCONFMODULESDIR}/mod_php7.conf <<_EOF
-# mod_php7 is not thread-safe
+	cat > ${D}${HTTPD_SYSCONFMODULESDIR}/mod_php8.conf <<_EOF
+# mod_php8 is not thread-safe
 <IfModule prefork.c>
-  LoadModule php7_module modules/libphp7.so
+  LoadModule php8_module modules/libphp8.so
 </IfModule>
 _EOF
 
 	# Add httpd.conf snippet
 	dodir ${HTTPD_SYSCONFDIR}
-	cat > ${D}${HTTPD_SYSCONFDIR}/php7.conf <<_EOF
+	cat > ${D}${HTTPD_SYSCONFDIR}/php8.conf <<_EOF
 AddType text/html .php
 DirectoryIndex index.php
 
-<IfModule mod_php7.c>
+<IfModule mod_php.c>
     <FilesMatch \.php$>
         SetHandler application/x-httpd-php
     </FilesMatch>
@@ -545,16 +544,16 @@ DirectoryIndex index.php
     </FilesMatch>
 </IfModule>
 
-# if using a thread-safe MPM, or mod_php7 is not installed, use php-fpm instead
+# if using a thread-safe MPM, or mod_php is not installed, use php-fpm instead
 # requires: mod_proxy, mod_proxy_fcgi
-<IfModule !mod_php7.c>
+<IfModule !mod_php.c>
     <FilesMatch \.php$>
         # value depends on /etc/php-fpm.conf:listen=; this is the default
         SetHandler "proxy:fcgi://localhost:9000"
     </FilesMatch>
 </IfModule>
 _EOF
-	make_etc_defaults ${HTTPD_SYSCONFDIR}/php7.conf
+	make_etc_defaults ${HTTPD_SYSCONFDIR}/php8.conf
 
 	dodir /var/lib/rebase/dynpath.d
 	echo $(${D}/usr/bin/php-config --extension-dir) > ${D}/var/lib/rebase/dynpath.d/php
