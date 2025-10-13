@@ -307,9 +307,9 @@ php_devel_CONTENTS="
 	usr/share/man/man1/php-config.*
 	usr/share/man/man1/phpize.*
 "
-httpd_mod_php7_OBSOLETES="httpd-mod_php5"
-httpd_mod_php7_CONTENTS="${HTTPD_SYSCONFMODULESDIR#/} ${HTTPD_LIBEXECDIR#/}"
-httpd_mod_php7_SUMMARY="Embedded PHP for Apache HTTP Server"
+httpd_mod_php8_OBSOLETES="httpd-mod_php5"
+httpd_mod_php8_CONTENTS="${HTTPD_SYSCONFMODULESDIR#/} ${HTTPD_LIBEXECDIR#/}"
+httpd_mod_php8_SUMMARY="Embedded PHP for Apache HTTP Server"
 
 # This method provides 50+ modules, so better automate this:
 for ext in $(echo ${cli_args} | sed -e 's# #\n#g' | grep shared \
@@ -387,7 +387,10 @@ src_compile() {
 	cd ${B}/apache2
 
 	CYGCONF_SOURCE="${S}" cygconf \
-		--disable-all --disable-cli --with-apxs2=${HTTPD_APXS} ${common_args}
+		--disable-all --disable-cli --with-apxs2=${HTTPD_APXS} --with-libxml ${common_args}
+
+    # Add GCC 12 and x86_64 Cygwin-specific library paths to sys_lib_search_path_spec in libtool
+    sed -i 's|^sys_lib_search_path_spec="\([^"]*\)"|sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-cygwin/12 /usr/x86_64-pc-cygwin/lib \1"|' libtool
 
 	# the -a flag adds the module to httpd.conf
 	sed -e 's#-prefer-non-pic -static##g' \
@@ -396,9 +399,9 @@ src_compile() {
 		-i Makefile
 
 	# HTTPD expects mods to have .so suffix on all platforms
-	cygmake libphp${VERSION%%.*}.la \
+	cygmake libphp.la \
 		PHP_GLOBAL_OBJS='' \
-		ZEND_EXTRA_LIBS="${B}/embed/libphp${VERSION%%.*}.la"
+		ZEND_EXTRA_LIBS="${B}/embed/libphp.la"
 }
 
 src_test() {
