@@ -302,7 +302,7 @@ php_devel_CONTENTS="
 	usr/bin/php-config
 	usr/bin/phpize
 	usr/include/php/
-	usr/lib/libphp8.dll.a
+	usr/lib/libphp.dll.a
 	usr/lib/php/build/
 	usr/share/man/man1/php-config.*
 	usr/share/man/man1/phpize.*
