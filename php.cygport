@@ -392,6 +392,14 @@ src_compile() {
     # Add GCC 12 and x86_64 Cygwin-specific library paths to sys_lib_search_path_spec in libtool
     sed -i 's|^sys_lib_search_path_spec="\([^"]*\)"|sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-cygwin/12 /usr/x86_64-pc-cygwin/lib \1"|' libtool
 
+	# Replace the soname_spec line in libtool with the correct Cygwin-style definition (cyg*.so only)
+	sed -i "s|^soname_spec=.*|soname_spec='\`echo \$libname | \$SED -e 's/^lib/cyg/'\`\`\echo \$release | \$SED -e 's/[.]/-/g'\`\$versuffix\$shared_ext'|" libtool
+
+	# Replace library_names_spec in libtool to use the correct Cygwin-style import library name (*.dll.a)
+	sed -i "s|^library_names_spec=.*|library_names_spec=\"\$libname.dll.a\"|" libtool
+	
+	# Keep postinstall_cmds and postuninstall_cmds unchanged, since they appear correct even though they were explicitly set in libtool 2.4.7
+
 	# the -a flag adds the module to httpd.conf
 	sed -e 's#-prefer-non-pic -static##g' \
 		-e 's#-prefer-pic##g' \
