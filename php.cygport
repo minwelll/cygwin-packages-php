@@ -273,7 +273,7 @@ php_CONTENTS="
 	${inidir#/}
 	etc/p*/php.sh
 	etc/rc.d/init.d/php-fpm
-	usr/bin/cygphp8-*.dll
+	usr/bin/cygphp-8-*.dll
 	usr/bin/php.exe
 	usr/bin/php-cgi.exe
 	usr/bin/phpdbg.exe
@@ -430,8 +430,8 @@ src_install() {
 	cd ${B}/embed
 	cygmake -j1 install INSTALL_ROOT=${D} INSTALL_IT=
 	# install the shared lib (normally done by INSTALL_IT)
-	dobin libs/cygphp8-*.dll
-	dolib libs/libphp8.dll.a
+	dobin libs/cygphp-8-*.dll
+	dolib libs/libphp.dll.a
 
 	# install the real executables, not the libtool stubs
 	cd ${B}
