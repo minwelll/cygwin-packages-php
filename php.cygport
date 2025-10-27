@@ -137,11 +137,9 @@ common_args="
   --with-config-file-path=/etc
   --with-config-file-scan-dir=${inidir}
   --with-layout=GNU
-  --with-system-tzdata
 
   --enable-dom=yes
   --enable-filter=yes
-  --enable-hash=yes
   --with-mhash
   --with-libxml=yes
   --with-openssl=yes
@@ -183,6 +181,8 @@ cli_args="
   --with-webp=yes
   --with-jpeg=yes
   --with-zlib-dir=/usr
+  --with-xpm=yes
+  --with-freetype=yes
   --with-gettext=shared
   --with-gmp=shared,/usr
   --with-iconv=shared,/usr
@@ -368,7 +368,7 @@ src_compile() {
 	cd ${B}/apache2
 
 	CYGCONF_SOURCE="${S}" cygconf \
-		--disable-all --disable-cli --with-apxs2=${HTTPD_APXS} --with-libxml ${common_args}
+		--disable-all --disable-cli --with-apxs2=${HTTPD_APXS} ${common_args}
 
     # Add GCC 12 and x86_64 Cygwin-specific library paths to sys_lib_search_path_spec in libtool
     sed -i 's|^sys_lib_search_path_spec="\([^"]*\)"|sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-cygwin/12 /usr/x86_64-pc-cygwin/lib \1"|' libtool
