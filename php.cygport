@@ -32,6 +32,7 @@ PATCH_URI="
 	8.1.28-remove-redundant-warn-jit-disabled.patch              
 	8.1.28-simplify_pdo_include_paths.patch                      
 	8.1.28-zip-disable-encryption-introduced-in-libzip-1.6+.patch	
+	8.1.28-intl-cxx17.patch
 "
 
 # From https://sourceware.org/pipermail/cygwin/2017-May/232903.html,
@@ -167,7 +168,7 @@ cli_args="
   --enable-dba=shared
   --with-gdbm=/usr
   --with-ndbm=/usr
-  --with-db4=/usr
+  --without-db4
   --with-dbm=/usr
   --with-lmdb=/usr
   --with-cdb
