@@ -346,7 +346,7 @@ src_compile() {
 	sed -e '/^LTCFLAGS=/d' -i libtool
     # Add GCC 12 and x86_64 Cygwin-specific library paths to sys_lib_search_path_spec in libtool
     #sed -i 's|^sys_lib_search_path_spec="\([^"]*\)"|sys_lib_search_path_spec="/usr/lib/gcc/x86_64-pc-cygwin/12 /usr/x86_64-pc-cygwin/lib \1"|' libtool
-    sed -e 's/ -lphp8 / libphp.la /g' -i Makefile
+    sed -e 's/ -lphp / libphp.la /g' -i Makefile
 
 	# first make the common sources library
 	# enabling zip with system libzip somehow clobbers -lpcre
