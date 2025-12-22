@@ -422,7 +422,7 @@ src_install() {
 	dosbin embed/sapi/fpm/php-fpm.exe
 
 	# sanitize php-config
-	sed -e "s#^libs=.*#libs=\"-lphp${VERSION%%.*}\"#" \
+	sed -e "s#^libs=.*#libs=\"-lphp\"#" \
 		-e 's#^php_sapis=.*#php_sapis="cli cgi embed fpm apache2handler"#' \
 		-i ${D}/usr/bin/php-config
 
